@@ -14,7 +14,6 @@ Import-Module ADDSDeployment
 Install-ADDSDomainController `
 -NoGlobalCatalog:$false `
 -CreateDnsDelegation:$false `
--Credential (Get-Credential) `
 -CriticalReplicationOnly:$false `
 -DatabasePath "C:\Windows\NTDS" `
 -DomainName "jmc.com" `
