@@ -1,4 +1,3 @@
-
 $hostname = hostname
 if ($hostname -eq "AD1") {
 Install-WindowsFeature ad-domain-services -IncludeAllSubFeature -IncludeManagementTools
@@ -11,9 +10,14 @@ Install-WindowsFeature ad-domain-services -IncludeAllSubFeature -IncludeManageme
 $adapter = get-networkadapter
 set-dnsclientserveraddress -InterfaceIndex $adapter.ifindex -ServerAddresses 10.0.1.4
 Import-Module ADDSDeployment
+$userName = 'admin123'
+$userPassword = 'Password123123!!'
+$secureString = $userPassword | ConvertTo-SecureString -AsPlainText -Force 
+$credentialObejct = New-Object System.Management.Automation.PSCredential -ArgumentList $userName, $secureString
 Install-ADDSDomainController `
+-credential: $credentialObejct `
 -NoGlobalCatalog:$false `
--CreateDnsDelegation:$false `
+-CreateDnsDelegation:$false ` `
 -CriticalReplicationOnly:$false `
 -DatabasePath "C:\Windows\NTDS" `
 -DomainName "jmc.com" `
@@ -24,4 +28,3 @@ Install-ADDSDomainController `
 -SysvolPath "C:\Windows\SYSVOL" `
 -Force:$true
 }
-
