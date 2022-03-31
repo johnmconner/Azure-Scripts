@@ -7,7 +7,7 @@ install-addsforest -domainname jmc.com -installdns -safemodeadministratorpasswor
 }
 else {
 Install-WindowsFeature ad-domain-services -IncludeAllSubFeature -IncludeManagementTools
-$adapter = get-networkadapter
+$adapter = get-netadapter
 set-dnsclientserveraddress -InterfaceIndex $adapter.ifindex -ServerAddresses 10.0.1.4
 Import-Module ADDSDeployment
 $userName = 'admin123'
